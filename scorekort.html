@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vilshärads Fotbollsgolf</title>
+    <script type="module" src="score.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <h1>Vilshärads Fotbollsgolf</h1>
+        <span class="hamburger" id="toggleMenu">☰</span>
+        <ul id="menu">
+            <li><a href="#vy1" id="start">Start</a></li>
+            <li><a href="#vy2">Lägg till spelare</a></li>
+            <li><a href="#vy5">Pågående Match</a></li>
+            <li><a href="#vy3">Resultat</a></li>
+            <li><a href="#vy4">Info</a></li>
+        </ul>
+    </nav>
+
+    <div style="text-align: center;" id="vy1" class="content">
+        <h2>Välkommen till Vilshärads fotbollsgolf!</h2>
+
+        <div style="border: 1px solid black; padding: 1%; text-align: center;">
+
+        <a href="#vy2">Skapa match</a>
+        <a href="">Spara match</a>
+        <a href="">Ladda match</a>
+
+        </div>
+
+        <p></p>
+    </div>
+
+    <div style="text-align: center;" id="vy2" class="inputs content">
+        <h2>Lägg till spelare</h2>
+        <div style="text-align: center;"> 
+            <button class="startbutton" id="add">+</button>
+            <button class="startbutton" id="remove">-</button>
+            <a id="skicka" href="#vy5">Starta spel</a>
+        </div>
+        <input placeholder="Namn" class="input" type="text" id="input1">
+        <input placeholder="Namn" class="input" type="text" id="input2">
+        <input placeholder="Namn" class="input" type="text" id="input3">
+    </div>
+        
+    <div id="vy3" class="content"><h2>Här är resultat...
+
+  <div class="score"></div>
+
+
+    </h2></div>
+    <div id="vy5" class="content">
+        <h2>Din match
+           
+            <div class="scoreboard"> 
+        
+                <div class="display"></div>
+
+            </div>
+         
+
+        </h2>
+    </div>
+    <div id="vy4" class="content"><h2>Annan info...</h2></div>
+    
+
+
+    <footer>
+        
+    </footer>
+
+</body>
+</html>
