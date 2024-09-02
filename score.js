@@ -10,7 +10,9 @@ const removeButton = qs("#remove");
 
 let localPlayers = JSON.parse(localStorage.getItem("players"));
 let players = localPlayers ? localPlayers : {};
-
+if(players = localPlayers){
+    createGame();
+}
 
 ael(togglemenu, "click", toggleMenu);
 ael(addButton, "click", add);
