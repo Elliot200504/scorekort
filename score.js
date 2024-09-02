@@ -193,5 +193,6 @@ async function getCourt(){
             playerDiv.appendChild(removeScoreButton);
             scoreboardContainer.appendChild(playerDiv);
         }
+        localStorage.setItem("players",JSON.stringify(players));
         return scoreboardContainer;
     }
