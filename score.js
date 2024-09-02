@@ -7,15 +7,9 @@ const addButton = qs("#add");
 const removeButton = qs("#remove");
 //const scoreboardContainer = qs(".scoreboard .display");
 
-let localPlayers = localStorage.getItem("players")
 
-if(localPlayers){
-    players = JSON.parse(localPlayers)
-}
-else{
-  players = {};
-}
-
+let localPlayers = JSON.parse(localStorage.getItem("players"));
+let players = localPlayers ? localPlayers : {};
 
 
 ael(togglemenu, "click", toggleMenu);
@@ -56,7 +50,6 @@ function toggleMenu() {
 
 function skickaSpelare() {
     const names = qsa(".input");
-    players = {};
 
     names.forEach(n => {
         if (n.value) {
