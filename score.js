@@ -147,43 +147,51 @@ async function getCourt(){
     }
 
 
-function updateScoreboard(holeId) {
-        let  scoreboardContainer = ce("section");
-
-    console.log(players);
-
-    for (const player in players) {
-        const playerDiv = ce("div");
-        playerDiv.style.display = "flex"; 
-        playerDiv.style.alignItems = "center";
-
-        const addScoreButton = ce("button");
-        addScoreButton.textContent = "+";
-
-        ael(addScoreButton, "click", () => {
-            players[player][holeId].score++;
-            updateScoreboard(holeId);
-        });
-
-        const display = ce("span");
-        display.textContent = `${player}: ${players[player][holeId].score}`;
-        display.style.flexGrow = "1"; 
-        display.style.textAlign = "center"; 
-
-        const removeScoreButton = ce("button");
-        removeScoreButton.textContent = "-";
-        ael(removeScoreButton, "click", () => {
-            if (players[player][holeId].score > 0) {
-                players[player][holeId].score--;
-                updateScoreboard(holeId);
-            }
-        });
-
+    function updateScoreboard(holeId) {
       
-        playerDiv.appendChild(addScoreButton);
-        playerDiv.appendChild(display);
-        playerDiv.appendChild(removeScoreButton);
-       scoreboardContainer.appendChild(playerDiv);
+        let scoreboardContainer = ce("section");
+        scoreboardContainer.classList.add("scoreboard"); 
+    
+     
+        const displayElements = {};
+    
+        console.log(players);
+    
+        for (const player in players) {
+            const playerDiv = ce("div");
+            playerDiv.style.display = "flex"; 
+            playerDiv.style.alignItems = "center";
+    
+            const addScoreButton = ce("button");
+            addScoreButton.textContent = "+";
+    
+   
+            ael(addScoreButton, "click", () => {
+                players[player][holeId].score++;
+                displayElements[player].textContent = `${player}: ${players[player][holeId].score}`;
+            });
+    
+            const display = ce("span");
+            display.textContent = `${player}: ${players[player][holeId].score}`;
+            display.style.flexGrow = "1"; 
+            display.style.textAlign = "center"; 
+            
+  
+            displayElements[player] = display;
+    
+            const removeScoreButton = ce("button");
+            removeScoreButton.textContent = "-";
+            ael(removeScoreButton, "click", () => {
+                if (players[player][holeId].score > 0) {
+                    players[player][holeId].score--;
+                    displayElements[player].textContent = `${player}: ${players[player][holeId].score}`;
+                }
+            });
+    
+            playerDiv.appendChild(addScoreButton);
+            playerDiv.appendChild(display);
+            playerDiv.appendChild(removeScoreButton);
+            scoreboardContainer.appendChild(playerDiv);
+        }
+        return scoreboardContainer;
     }
-    return scoreboardContainer;
-}
