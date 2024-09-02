@@ -1,22 +1,18 @@
 import { qs, ce, qsa, ael} from "./helper.js";
 
 const inputContainer = qs("#vy2");
-const loadMatch = qs("#vy6");
 const saveButton = qs("#skicka");
 const togglemenu = qs("#toggleMenu");
 const addButton = qs("#add");
 const removeButton = qs("#remove");
 //const scoreboardContainer = qs(".scoreboard .display");
 
-ael(loadMatch,"click", () => {
 
 let localPlayers = JSON.parse(localStorage.getItem("players"));
 let players = localPlayers ? localPlayers : {};
 if(players = localPlayers){
 createGame();
 }
-
-});
 
 
 
