@@ -162,7 +162,7 @@ function updateScoreboard(holeId) {
 
         ael(addScoreButton, "click", () => {
             players[player][holeId].score++;
-            updateScoreboard();
+            updateScoreboard(holeId);
         });
 
         const display = ce("span");
@@ -175,7 +175,7 @@ function updateScoreboard(holeId) {
         ael(removeScoreButton, "click", () => {
             if (players[player][holeId].score > 0) {
                 players[player][holeId].score--;
-                updateScoreboard();
+                updateScoreboard(holeId);
             }
         });
 
