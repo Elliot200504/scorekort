@@ -8,17 +8,16 @@ const addButton = qs("#add");
 const removeButton = qs("#remove");
 //const scoreboardContainer = qs(".scoreboard .display");
 
-ael(loadMatch,"click", load);
-
-load()
-{
+ael(loadMatch,"click", () => {
 
 let localPlayers = JSON.parse(localStorage.getItem("players"));
 let players = localPlayers ? localPlayers : {};
 if(players = localPlayers){
 createGame();
 }
-}
+
+});
+
 
 
 
