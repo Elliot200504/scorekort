@@ -6,7 +6,16 @@ const togglemenu = qs("#toggleMenu");
 const addButton = qs("#add");
 const removeButton = qs("#remove");
 //const scoreboardContainer = qs(".scoreboard .display");
-let players = {};
+
+let localPlayers = localStorage.getItem("players")
+
+if(localPlayers){
+    players = JSON.parse(localPlayers)
+}
+else{
+  players = {};
+}
+
 
 
 ael(togglemenu, "click", toggleMenu);
@@ -169,6 +178,7 @@ async function getCourt(){
             ael(addScoreButton, "click", () => {
                 players[player][holeId].score++;
                 displayElements[player].textContent = `${player}: ${players[player][holeId].score}`;
+                localStorage.setItem("players",JSON.stringify(players));
             });
     
             const display = ce("span");
@@ -185,6 +195,7 @@ async function getCourt(){
                 if (players[player][holeId].score > 0) {
                     players[player][holeId].score--;
                     displayElements[player].textContent = `${player}: ${players[player][holeId].score}`;
+                    localStorage.setItem("players",JSON.stringify(players));
                 }
             });
     
@@ -192,8 +203,8 @@ async function getCourt(){
             playerDiv.appendChild(display);
             playerDiv.appendChild(removeScoreButton);
             scoreboardContainer.appendChild(playerDiv);
-            localStorage.setItem("players",JSON.stringify(players));
+        
         }
-      
+        
         return scoreboardContainer;
     }
