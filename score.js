@@ -99,9 +99,9 @@ async function getCourt(){
         p.classList.add("holename");
         p.innerText = hole.info;
     
-        let holeId = hole.id;
+
     
-        let container = updateScoreboard(holeId);
+        let container = updateScoreboard(hole.id);
     
         div.appendChild(p);
         
@@ -162,7 +162,7 @@ function updateScoreboard(holeId) {
 
         ael(addScoreButton, "click", () => {
             players[player][holeId].score++;
-            updateScoreboard(holeId);
+            updateScoreboard();
         });
 
         const display = ce("span");
@@ -175,7 +175,7 @@ function updateScoreboard(holeId) {
         ael(removeScoreButton, "click", () => {
             if (players[player][holeId].score > 0) {
                 players[player][holeId].score--;
-                updateScoreboard(holeId);
+                updateScoreboard();
             }
         });
 
