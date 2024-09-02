@@ -53,11 +53,13 @@ function toggleMenu() {
 function skickaSpelare() {
     const names = qsa(".input");
 
-    names.forEach(n => {
+    if(!localPlayers){
+       names.forEach(n => {
         if (n.value) {
             players[n.value] = {};
         }
-    });
+    });  
+    }
 
     createGame();
 }
@@ -78,13 +80,15 @@ async function getCourt(){
         let court = await getCourt();
         console.log(court);
     
-       
+       if(!localPlayers){
         court.forEach(hole => {
             const holeId = hole.id;
             for (const player in players) {
                 players[player][holeId] = { score: 0 };
             }
-        });
+        }); 
+       }
+        
     
         court.map(hole => generateHole(hole));
     }
