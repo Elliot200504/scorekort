@@ -10,19 +10,20 @@
 <body>
 
     <nav>
-        <h1>Vilshärads Fotbollsgolf</h1>
+        <h1><a href="#vy1">Vilshärads Fotbollsgolf</a></h1>
         <span class="hamburger" id="toggleMenu">☰</span>
         <ul id="menu">
             <li><a href="#vy1" id="start">Start</a></li>
             <li><a href="#vy2" id="start">Lägg till spelare</a></li>
             <li><a href="#vy5">Pågående Match</a></li>
-            <li><a href="#vy3">Resultat</a></li>
+            <li><a href="#vy3" id="toggleScore">Resultat</a></li>
+            <li><a href="scorekort.html" id="clear" >Rensa match</a></li>
             <li><a href="#vy4">Info</a></li>
         </ul>
     </nav>
 
     
-    <div style="text-align: center;" id="vy1" class="content">
+    <div style="text-align: center;" id="vy1" class="content visible">
         <h2>Välkommen till Vilshärads fotbollsgolf!</h2>
 
         <div style="border: 1px solid black; padding: 1%; text-align: center;">
@@ -48,12 +49,22 @@
         <input placeholder="Namn" class="input" type="text" id="input3">
     </div>
         
-    <div id="vy3" class="content"><h2>Här är resultat...
+    <div id="vy3" class="content"><h2>
 
-  <div class="score"></div>
 
+
+  <div style="border: 1px solid black;" class="score">
+
+  <h3>Resultat:</h3>
+
+  </div>
+ <div style="border: 1px solid black;" class="gamedisplay">
+    
+    <h3>Info:</h3>
+ </div>
 
     </h2></div>
+    
     <div id="vy5" class="content">
         <h2>Din match
            
@@ -66,9 +77,36 @@
 
         </h2>
     </div>
-    <div id="vy4" class="content"><h2>Annan info...</h2></div>
-    
+    <div id="vy4" class="content">
+        
+        <h2>Priser (Swish)</h2>
 
+
+
+        <p>  Vuxen: 120kr</p>  
+            
+        <p>  Barn under 15 år: 60kr</p>
+            
+        <p>  Swish: 123-007 75 29 </p>
+            
+        <p>  Läs information & regler innan ni börjar</p>
+            
+
+
+
+        <h2>Information & Regler</h2>
+    
+    <dl style="font-size: 15px;">
+        <dt>Banans par är 77</dt>    
+        <dt>Hinder markeras med grå stolpe/stolpar</dt>    
+        <dt>Allt spel sker på egen risk</dt>    
+        <dt>Endast ett utslag per hål</dt>    
+        <dt>Bollen Spelas ifrån den plats den hamnar</dt>    
+        <dt>Bollen ska ligga stilla vid tillslag</dt>    
+        <dt>Bollen ska gå rätt väg genom hinder, "baklänges" är ej godkänt</dt> 
+        <dt>När ni är redo, börja lägga till spelare</dt>
+    </dl>
+</div>
 
     <footer>
         

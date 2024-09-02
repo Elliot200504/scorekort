@@ -5,20 +5,29 @@ const saveButton = qs("#skicka");
 const togglemenu = qs("#toggleMenu");
 const addButton = qs("#add");
 const removeButton = qs("#remove");
+const tryscore = qs("#toggleScore");
+const menu = qs("#menu");
 //const scoreboardContainer = qs(".scoreboard .display");
 
 
 let localPlayers = JSON.parse(localStorage.getItem("players"));
 let players = localPlayers ? localPlayers : {};
-if(players = localPlayers){
+if(players == localPlayers){
 createGame();
 }
 
 
 
+const clearmatch = qs("#clear")
+ael(clearmatch, "click", c=> {
 
+localStorage.clear();
+
+
+})
 
 ael(togglemenu, "click", toggleMenu);
+ael(menu, "click", toggleMenu);
 ael(addButton, "click", add);
 ael(removeButton, "click", remove);
 ael(saveButton, "click", skickaSpelare);
@@ -57,12 +66,21 @@ function toggleMenu() {
 function skickaSpelare() {
     const names = qsa(".input");
 
+
+    
+
     if(!localPlayers){
        names.forEach(n => {
         if (n.value) {
             players[n.value] = {};
         }
     });  
+    }
+
+  /*   console.log(Object.keys(players).length); */
+    if(Object.keys(players).length == 0){
+        alert("Fyll i namn");
+       return  window.event.preventDefault();
     }
 
     createGame();
@@ -119,10 +137,11 @@ async function getCourt(){
         
      
         const a = ce('a');
-        a.id = "button" + hole.id;
+       
         a.style.border = "1px solid white";
         a.style.scrollMarginTop ="100px";
         if (hole.id != 18){
+        a.id = "button" + hole.id;
         hole.id = hole.id + 1;
         a.textContent = "Gå till hål " + hole.id; 
         a.setAttribute('href', `#hole${hole.id}`);
@@ -130,8 +149,9 @@ async function getCourt(){
         }
         else
         {
-            a.textContent = "Gå tillbaks till hål 1"; 
-            a.setAttribute('href', `#hole1`); 
+            a.textContent = "Gå till resultat"; 
+            a.setAttribute('href', `#vy3`);
+            a.id = "toggleScore"
         }
         
     
@@ -147,12 +167,12 @@ async function getCourt(){
     
         let holebox = ce("div");
         holebox.classList.add("box");
-    
+        holebox.style.display = "block";
+        holebox.style.height = "100vh";
+
         holebox.appendChild(div);
         holebox.appendChild(container);
         holebox.appendChild(a);
-        holebox.style.display = "block";
-        holebox.style.height = "100vh";
         qs(".display").appendChild(holebox);
     
         return holebox;
@@ -180,12 +200,12 @@ async function getCourt(){
    
             ael(addScoreButton, "click", () => {
                 players[player][holeId].score++;
-                displayElements[player].textContent = `${player}: ${players[player][holeId].score}`;
+                displayElements[player].textContent = player + ": " + players[player][holeId].score;
                 localStorage.setItem("players",JSON.stringify(players));
             });
     
             const display = ce("span");
-            display.textContent = `${player}: ${players[player][holeId].score}`;
+            display.textContent = player + ": " + players[player][holeId].score;
             display.style.flexGrow = "1"; 
             display.style.textAlign = "center"; 
             
@@ -197,7 +217,7 @@ async function getCourt(){
             ael(removeScoreButton, "click", () => {
                 if (players[player][holeId].score > 0) {
                     players[player][holeId].score--;
-                    displayElements[player].textContent = `${player}: ${players[player][holeId].score}`;
+                    displayElements[player].textContent = player + ": " + players[player][holeId].score;
                     localStorage.setItem("players",JSON.stringify(players));
                 }
             });
@@ -210,4 +230,43 @@ async function getCourt(){
         }
         
         return scoreboardContainer;
+    }
+
+    ael(tryscore, "click", generateScore);
+
+
+
+    async function generateScore() {
+        let court = await getCourt();
+        let totalScores = {};
+    
+     
+        for (const player in players) {
+            totalScores[player] = 0; 
+        }
+
+
+        court.forEach(hole => {
+            const holeId = hole.id;
+            
+            for (const player in players) {
+                totalScores[player] += players[player][holeId].score;
+            }
+        });
+    
+     
+
+        for (const player in totalScores) {
+           const div = ce("div");
+           div.innerText = player + ": " + totalScores[player];
+           console.log(player + ": " + totalScores[player]);
+           qs(".score").appendChild(div);
+        }
+
+      
+    
+    
+    
+        
+    
     }
