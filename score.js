@@ -7,6 +7,8 @@ const addButton = qs("#add");
 const removeButton = qs("#remove");
 const tryscore = qs("#toggleScore");
 const menu = qs("#menu");
+const showScoresButton = qs("#showHoleScoresButton");
+
 //const scoreboardContainer = qs(".scoreboard .display");
 
 
@@ -31,6 +33,7 @@ ael(menu, "click", toggleMenu);
 ael(addButton, "click", add);
 ael(removeButton, "click", remove);
 ael(saveButton, "click", skickaSpelare);
+
 
 
 document.getElementById("start").click();
@@ -62,6 +65,12 @@ function toggleMenu() {
     const menu = document.getElementById("menu");
     menu.classList.toggle('show'); 
 }
+
+ael(showScoresButton, 'click', () => {
+
+   console.log("klickad");
+});
+
 
 function skickaSpelare() {
     const names = qsa(".input");
@@ -239,34 +248,66 @@ async function getCourt(){
     async function generateScore() {
         let court = await getCourt();
         let totalScores = {};
-    
-     
+        
+       
         for (const player in players) {
             totalScores[player] = 0; 
         }
-
-
+    
+       
+        const holePars = {};
         court.forEach(hole => {
             const holeId = hole.id;
+            holePars[holeId] = hole.par; 
             
             for (const player in players) {
                 totalScores[player] += players[player][holeId].score;
             }
         });
     
-     
-
+    
         for (const player in totalScores) {
-           const div = ce("div");
-           div.innerText = player + ": " + totalScores[player];
-           console.log(player + ": " + totalScores[player]);
-           qs(".score").appendChild(div);
+            const div = ce("div");
+            
+          
+            let totalPar = 0;
+            for (const holeId in holePars) {
+                totalPar += holePars[holeId]; 
+            }
+            
+            div.innerText = player + ": " + " Poäng/Par: " + totalScores[player] + "/" + totalPar;
+            console.log(player + ": " + totalScores[player] + " Poäng/Par: " + totalScores[player] + "/" + totalPar);
+            qs(".score").appendChild(div);
+
+
         }
 
-      
-    
-    
-    
+        generateholeScores();
         
+           
+    }
     
+    async function generateholeScores() {
+        let court = await getCourt();
+        const holePars = {};
+    
+ 
+        court.forEach(hole => {
+            holePars[hole.id] = hole.par;
+        });
+    
+        for (const player in players) {
+            for (const holeId in holePars) {
+                const infodiv = ce("div"); 
+                infodiv.classList.add("show");
+                infodiv.id = "hole" + holeId;
+                const playerScore = players[player][holeId] ? players[player][holeId].score : 0;
+                
+               
+                infodiv.innerText = player +  " Hål: " + holeId + " - Poäng: " + playerScore + "/ Par: " + holePars[holeId];
+                
+               
+                qs(".gamedisplay").appendChild(infodiv);
+            }
+        }
     }
