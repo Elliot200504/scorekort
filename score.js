@@ -8,6 +8,8 @@ const removeButton = qs("#remove");
 const tryscore = qs("#toggleScore");
 const menu = qs("#menu");
 const showScoresButton = qs("#showHoleScoresButton");
+const holeInput = qs("#holeInput");
+
 
 //const scoreboardContainer = qs(".scoreboard .display");
 
@@ -32,8 +34,10 @@ ael(togglemenu, "click", toggleMenu);
 ael(menu, "click", toggleMenu);
 ael(addButton, "click", add);
 ael(removeButton, "click", remove);
-ael(saveButton, "click", skickaSpelare);
-
+ael(saveButton, "click", (event) => {
+    event.preventDefault();
+    skickaSpelare();
+});
 
 
 document.getElementById("start").click();
@@ -66,10 +70,6 @@ function toggleMenu() {
     menu.classList.toggle('show'); 
 }
 
-ael(showScoresButton, 'click', () => {
-
-   console.log("klickad");
-});
 
 
 function skickaSpelare() {
@@ -144,25 +144,20 @@ async function getCourt(){
     
         div.appendChild(p);
         
-     
         const a = ce('a');
-       
         a.style.border = "1px solid white";
         a.style.scrollMarginTop ="100px";
-        if (hole.id != 18){
-        a.id = "button" + hole.id;
-        hole.id = hole.id + 1;
-        a.textContent = "Gå till hål " + hole.id; 
-        a.setAttribute('href', `#hole${hole.id}`);
-         
+        if (hole.id != 18) {
+            a.id = "button" + hole.id;
+            hole.id = hole.id + 1;
+            a.textContent = "Gå till hål " + hole.id; 
+            a.setAttribute('href', `#hole${hole.id}`);
+        } else {
+            a.textContent = "Gå till hål 1"; 
+            a.setAttribute('href', `#hole1`);
+            a.id = "toggleScore";
         }
-        else
-        {
-            a.textContent = "Gå till resultat"; 
-            a.setAttribute('href', `#vy3`);
-            a.id = "toggleScore"
-        }
-        
+    
     
       
         a.addEventListener('click', (event) => {
@@ -177,8 +172,8 @@ async function getCourt(){
         let holebox = ce("div");
         holebox.classList.add("box");
         holebox.style.display = "block";
-        holebox.style.height = "100vh";
-
+        holebox.style.height = "90vh";
+        holebox.style.paddingTop ="60px";
         holebox.appendChild(div);
         holebox.appendChild(container);
         holebox.appendChild(a);
@@ -202,6 +197,7 @@ async function getCourt(){
             const playerDiv = ce("div");
             playerDiv.style.display = "flex"; 
             playerDiv.style.alignItems = "center";
+            
     
             const addScoreButton = ce("button");
             addScoreButton.textContent = "+";
@@ -265,10 +261,19 @@ async function getCourt(){
             }
         });
     
+        qs(".score").innerHTML = "";
     
         for (const player in totalScores) {
             const div = ce("div");
             
+            div.style.display = 'flex';
+            div.style.justifyContent = 'space-between';
+            div.style.borderBottom = '1px solid #ccc';
+            div.style.padding = '10px';
+            div.style.fontSize = '18px';
+            div.style.color = '#fff'; 
+            div.style.backgroundColor = '#1a1a2e'; 
+            div.style.transition = 'background-color 0.3s';
           
             let totalPar = 0;
             for (const holeId in holePars) {
@@ -281,33 +286,43 @@ async function getCourt(){
 
 
         }
-
-        generateholeScores();
         
            
     }
+
+   
+    ael(showScoresButton, 'click', async () => {
+        console.log("Button clicked to show scores");
+        await generateholeScores(); 
+    });
     
     async function generateholeScores() {
+        qs(".gamedisplay").innerHTML = "";
+        
+       
+        const holeNumber = parseInt(holeInput.value, 10); 
+   
+        if (isNaN(holeNumber) || holeNumber < 1 || holeNumber > 18) {
+            alert("Vänligen ange ett giltigt hålnummer (1-18).");
+            return;
+        }
+
         let court = await getCourt();
         const holePars = {};
-    
- 
+        
+        
         court.forEach(hole => {
-            holePars[hole.id] = hole.par;
+            holePars[hole.id] = hole.par; 
         });
-    
+
+       
         for (const player in players) {
-            for (const holeId in holePars) {
-                const infodiv = ce("div"); 
-                infodiv.classList.add("show");
-                infodiv.id = "hole" + holeId;
-                const playerScore = players[player][holeId] ? players[player][holeId].score : 0;
-                
-               
-                infodiv.innerText = player +  " Hål: " + holeId + " - Poäng: " + playerScore + "/ Par: " + holePars[holeId];
-                
-               
-                qs(".gamedisplay").appendChild(infodiv);
-            }
+            const scoreDisplay = ce("div");
+            scoreDisplay.classList.add("show");
+            scoreDisplay.id = "hole" + holeNumber;
+            const playerScore = players[player][holeNumber] ? players[player][holeNumber].score : 0;
+
+            scoreDisplay.innerText = `${player} Hål: ${holeNumber} - Poäng/Par: ${playerScore}/${holePars[holeNumber]}`;
+            qs(".gamedisplay").appendChild(scoreDisplay);
         }
     }

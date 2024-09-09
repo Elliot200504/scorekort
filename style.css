@@ -6,60 +6,78 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: darkslategray;
-    color: #dad7d7;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
     padding-top: 70px;
+    overflow-x: hidden;
 }
 
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #2e8b57; 
+    background-color: #16213e;
     color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding: 10px 20px; 
+    padding: 5px 10px;
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hamburger {
     cursor: pointer;
     font-size: 24px;
-    display: none; 
+    margin-left: auto;
+    display: block;
 }
 
 ul {
     list-style: none;
-    display: flex; 
+    display: none;
+    flex-direction: column;
     padding: 0;
+    width: 100%;
+    margin-top: 5px;
 }
 
 li {
-    margin-left: 20px; 
+    margin: 5px 0;
 }
 
 a {
+    border: 2px solid white;
     text-decoration: none;
-    color: white;
-    font-size: 18px;
-    padding: 5px 10px;
+    color: #ffffff;
+    font-size: 16px;
+    width: 100%;
+    display: inline-block;
+    padding: 10px;
     border-radius: 5px; 
     transition: background-color 0.3s;
 }
 
 a:hover {
-    background-color: #4caf50; 
+    background-color: #0f3460;
+}
+
+ul.show {
+    display: flex;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #16213e;
+    border-radius: 5px;
+    z-index: 999;
 }
 
 .content {
-
     display: none;
-    border: 1px solid black; 
+    border: 1px solid #0f3460;
     padding: 20px;
     margin: 20px 0;
-    background-color: darkslategrey; 
+    background-color: #1a1a2e; 
     border-radius: 10px; 
 }
 
@@ -67,53 +85,30 @@ a:hover {
     display: block;
 }
 
-
-
-.startbutton {
-    border: 2px solid #2e8b57; 
-    border-radius: 5%; 
-    background-color: #2e8b57; 
-    color: white;
-    cursor: pointer;
-    font-size: 30px;
-    margin: 5px;  
-    width:50px;
-    transition: background-color 0.3s;
-}
-
-.startbutton:hover {
-    background-color: #3cb371;
-}
-
-
-.startbutton a {
-    color: white;
-    text-decoration: none;
-}
-
+.startbutton,
 button {
-    border: 2px solid #2e8b57; 
-    border-radius: 5%; 
-    background-color: #2e8b57; 
-    color: white;
+    border: 2px solid #16213e; 
+    border-radius: 5%;
+    background-color: #0f3460; 
+    color: #ffffff;
     cursor: pointer;
-    font-size: 40px;
-    width: 60px;
-    height: 60px;
-    margin: 5px;  
+    font-size: 22px; 
+    width: 80%; 
+    height: 50px; 
+    margin: 10px auto; 
     transition: background-color 0.3s;
+    display: block; 
 }
 
-
+.startbutton:hover,
 button:hover {
-    background-color: #4caf50; 
+    background-color: #23395d; 
 }
-
 
 .display {
     width: 100%;
     height: auto; 
-    border: 1px solid white;
+    border: 2px solid #0f3460; 
     margin: auto;
     padding: 10px;
 }
@@ -122,7 +117,7 @@ button:hover {
     display: flex;
     align-items: center; 
     justify-content: space-between; 
-    margin: 10px 0; 
+    margin: 15px 0; 
 }
 
 .display div > span {
@@ -131,65 +126,44 @@ button:hover {
 }
 
 
-.holebox{
-    margin-top:20px;
+.hole {
+    font-size: 24px; 
+    display: block;
+    color: #ffffff; 
+    margin: 10px 0; 
 }
-
-
-.hole{
-
-font-size: 25px;
-display:block;
-}
-
-
 
 @media (max-width: 768px) {
-    .hamburger {
-        display: block; 
+    body {
+        padding-top: 50px; 
     }
-
-    .hole{
-
-        font-size: 20px;
-        
-        }
-
-    ul {
-        display: none;
-        flex-direction: column; 
-        background-color: #2e8b57; 
-        position: absolute; 
-        top: 60px; 
-        right: 0;
-        width: 100%; 
-        z-index: 10; 
-    }
-
 
     ul.show {
         display: flex; 
     }
 
-    li {
-        margin: 10px 0; 
-        text-align: center; 
+    .input {
+        height: 50px; 
+        padding: 15px; 
+        font-size: 18px; 
+        border-radius: 5px; 
+        margin: 10px auto; 
+        width: 90%; 
+        background-color: #1a1a2e; 
+        color: #ffffff; 
     }
-}
 
-.input {
-    background-color: darkslategrey;
-    color: white; 
-    border: 2px solid #2e8b57; 
-    height: 60px;
-    padding: 10px;
-    width: 90%;
-    font-size:20px;
-    margin: 10px auto; 
-    border-radius: 5px; 
-    display: block;
-}
+    .hole {
+        font-size: 20px; 
+    }
 
-.visible {
-    display: block;
+    h2 {
+        font-size: 26px; 
+        margin: 20px 0;
+    }
+
+    h3 {
+        font-size: 22px;
+        margin: 10px 0;
+    }
 }
